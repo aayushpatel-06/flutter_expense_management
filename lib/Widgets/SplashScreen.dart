@@ -15,9 +15,9 @@ class _SplashScreenState extends State<SplashScreen> {
       width: double.infinity,
       decoration: const BoxDecoration(
         gradient: LinearGradient(
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-          colors: [Color(0xFFFFFFFF), Color(0xFFEAFBF4), Color(0xFFBDF0D8)],
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: [Color(0xFFD4F7F0), Color(0xFFAAE8D0), Color(0xFF66CCB0)],
         ),
       ),
       child: Column(
@@ -31,7 +31,7 @@ class _SplashScreenState extends State<SplashScreen> {
                   "v1.0",
                   style: TextStyle(
                     fontSize: 13,
-                    color: Color.fromRGBO(10, 80, 55, 0.45),
+                    color: Color.fromRGBO(7, 51, 35, 0.447),
                     letterSpacing: 1.2,
                     fontWeight: FontWeight.bold,
                   ),
@@ -47,10 +47,10 @@ class _SplashScreenState extends State<SplashScreen> {
               padding: const EdgeInsets.all(22),
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                color: Color.fromRGBO(0, 180, 110, 0.10),
+                color: Color.fromRGBO(0, 203, 125, 0.098),
                 border: Border.all(
-                  color: Color.fromRGBO(0, 180, 110, 0.30),
-                  width: 1.5,
+                  color: const Color.fromARGB(135, 0, 145, 92),
+                  width: 3,
                 ),
               ),
               child: Image.asset(
@@ -58,7 +58,7 @@ class _SplashScreenState extends State<SplashScreen> {
                 height: 62,
                 width: 62,
                 fit: BoxFit.cover,
-                color: const Color(0xFF00A86B),
+                color: const Color.fromARGB(249, 0, 161, 102),
               ),
             ),
           ),
@@ -66,7 +66,7 @@ class _SplashScreenState extends State<SplashScreen> {
           const SizedBox(height: 28),
 
           Text(
-            "FinTrack",
+            "TrackEx",
             style: TextStyle(
               fontSize: 42,
               fontWeight: FontWeight.w800,
