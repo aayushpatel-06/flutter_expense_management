@@ -58,7 +58,7 @@ class _SplashScreenState extends State<SplashScreen> {
                 height: 62,
                 width: 62,
                 fit: BoxFit.cover,
-                color: const Color.fromARGB(255, 0, 161, 102),
+                color: const Color.fromARGB(249, 0, 161, 102),
               ),
             ),
           ),
