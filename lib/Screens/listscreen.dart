@@ -1,3 +1,4 @@
+import 'package:expense_management/Screens/AddScreen.dart';
 import 'package:expense_management/Screens/Expense.dart';
 import 'package:flutter/material.dart';
 
@@ -12,8 +13,7 @@ class ListScreen extends StatefulWidget {
 
 class _ListScreenState extends State<ListScreen> {
   double _total = 0.0;
-  String? _selectedDate;
-
+  String? _selectedDate = '${DateTime.now().day.toString().padLeft(2, '0')}-${DateTime.now().month.toString().padLeft(2, '0')}-${DateTime.now().year}';
   void _deleteSpending(Expense itemtodelete) {
     setState(() {
       widget.expenses.remove(itemtodelete);
@@ -25,6 +25,18 @@ class _ListScreenState extends State<ListScreen> {
         ),
       );
     });
+  }
+  Future<void> _NavigateAndAdd() async {
+    final newExpense = await Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => AddScreen()),
+    );
+
+    if (newExpense != null && newExpense is Expense) {
+      setState(() {
+        widget.expenses.add(newExpense);
+      });
+    }
   }
 
   Future<void> _selectDate(BuildContext context) async {
@@ -112,7 +124,13 @@ class _ListScreenState extends State<ListScreen> {
                         ],
                       ),
                       Spacer(),
-                      Icon(Icons.edit, color: Colors.blue, size: 24),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: IconButton(
+                          icon: Icon(Icons.edit, color: Colors.blue, size: 24),
+                          onPressed: (){},
+                        ),
+                      ),
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: IconButton(
@@ -131,7 +149,7 @@ class _ListScreenState extends State<ListScreen> {
             child: Padding(
               padding: const EdgeInsets.all(20),
               child: FloatingActionButton(
-                onPressed: () {},
+                onPressed: ()=>_NavigateAndAdd(),
                 child: Icon(Icons.add),
               ),
             ),

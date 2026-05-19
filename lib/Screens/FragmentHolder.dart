@@ -2,9 +2,14 @@ import 'package:expense_management/Screens/listscreen.dart';
 import 'package:expense_management/Screens/Expense.dart';
 import 'package:flutter/material.dart';
 
-class FragmentHolder extends StatelessWidget {
+class FragmentHolder extends StatefulWidget {
   FragmentHolder({super.key});
 
+  @override
+  State<FragmentHolder> createState() => _FragmentHolderState();
+}
+
+class _FragmentHolderState extends State<FragmentHolder> {
   final List<Expense> expenses = [
     Expense(date: '01-01-2024', type: 'Food', amount: 20.0),
     Expense(date: '02-01-2024', type: 'Transport', amount: 15.0),
@@ -31,6 +36,6 @@ class FragmentHolder extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListScreen(expenses: expenses);
+    return Scaffold(body: ListScreen(expenses: expenses));
   }
 }
