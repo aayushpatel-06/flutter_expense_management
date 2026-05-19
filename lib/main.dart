@@ -1,3 +1,4 @@
+import 'package:expense_management/Screens/FragmentHolder.dart';
 import 'package:expense_management/Screens/SplashScreen.dart';
 import 'package:expense_management/Screens/listscreen.dart';
 import 'package:flutter/material.dart';
@@ -13,7 +14,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: Scaffold(body: SplashScreen()),
+      home: Scaffold(body: FragmentHolder()),
     );
   }
 }
