@@ -1,5 +1,6 @@
 import 'package:expense_management/Screens/AddScreen.dart';
 import 'package:expense_management/Screens/Expense.dart';
+import 'package:expense_management/Screens/EditScreen.dart';
 import 'package:flutter/material.dart';
 
 class ListScreen extends StatefulWidget {
@@ -35,6 +36,22 @@ class _ListScreenState extends State<ListScreen> {
     if (newExpense != null && newExpense is Expense) {
       setState(() {
         widget.expenses.add(newExpense);
+      });
+    }
+  }
+
+  Future<void> _NavigateAndEdit(Expense expenseToEdit) async {
+    final editedExpense = await Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => EditScreen(expense: expenseToEdit)),
+    );
+
+    if (editedExpense != null && editedExpense is Expense) {
+      setState(() {
+        final index = widget.expenses.indexOf(expenseToEdit);
+        if (index != -1) {
+          widget.expenses[index] = editedExpense;
+        }
       });
     }
   }
@@ -128,7 +145,7 @@ class _ListScreenState extends State<ListScreen> {
                         padding: const EdgeInsets.all(8.0),
                         child: IconButton(
                           icon: Icon(Icons.edit, color: Colors.blue, size: 24),
-                          onPressed: (){},
+                          onPressed: () => _NavigateAndEdit(filteredList[index]),
                         ),
                       ),
                       Padding(
