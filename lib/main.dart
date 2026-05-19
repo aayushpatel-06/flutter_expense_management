@@ -1,6 +1,6 @@
 import 'package:expense_management/Screens/FragmentHolder.dart';
-import 'package:expense_management/Screens/SplashScreen.dart';
 import 'package:expense_management/Screens/listscreen.dart';
+import 'package:expense_management/Screens/SplashScreen.dart';
 import 'package:flutter/material.dart';
 
 void main() {
