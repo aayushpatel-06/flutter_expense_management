@@ -1,6 +1,6 @@
 // AddScreen.dart
 import 'package:flutter/material.dart';
-import 'package:expense_management/Screens/Expense.dart'; 
+import 'package:expense_management/Screens/Expense.dart';
 
 class AddScreen extends StatefulWidget {
   const AddScreen({super.key});
@@ -12,8 +12,9 @@ class AddScreen extends StatefulWidget {
 class _AddScreenState extends State<AddScreen> {
   final _typeController = TextEditingController();
   final _amountController = TextEditingController();
-  
-  String _selectedDate = '${DateTime.now().day.toString().padLeft(2, '0')}-${DateTime.now().month.toString().padLeft(2, '0')}-${DateTime.now().year}';
+
+  String _selectedDate =
+      '${DateTime.now().day.toString().padLeft(2, '0')}-${DateTime.now().month.toString().padLeft(2, '0')}-${DateTime.now().year}';
 
   Future<void> _presentDatePicker() async {
     final DateTime? picked = await showDatePicker(
@@ -24,7 +25,8 @@ class _AddScreenState extends State<AddScreen> {
     );
     if (picked != null) {
       setState(() {
-        _selectedDate = '${picked.day.toString().padLeft(2, '0')}-${picked.month.toString().padLeft(2, '0')}-${picked.year}';
+        _selectedDate =
+            '${picked.day.toString().padLeft(2, '0')}-${picked.month.toString().padLeft(2, '0')}-${picked.year}';
       });
     }
   }
@@ -41,11 +43,7 @@ class _AddScreenState extends State<AddScreen> {
     }
 
     Navigator.of(context).pop(
-      Expense(
-        date: _selectedDate,
-        type: enteredType,
-        amount: enteredAmount,
-      ),
+      Expense(date: _selectedDate, type: enteredType, amount: enteredAmount),
     );
   }
 
@@ -78,7 +76,9 @@ class _AddScreenState extends State<AddScreen> {
             const SizedBox(height: 16),
             TextField(
               controller: _amountController,
-              keyboardType: const TextInputType.numberWithOptions(decimal: true),
+              keyboardType: const TextInputType.numberWithOptions(
+                decimal: true,
+              ),
               decoration: const InputDecoration(
                 labelText: 'Amount (₹)',
                 prefixText: '₹ ',
@@ -89,11 +89,17 @@ class _AddScreenState extends State<AddScreen> {
             Card(
               elevation: 2,
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 12,
+                  vertical: 8,
+                ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text('Date: $_selectedDate', style: const TextStyle(fontSize: 16)),
+                    Text(
+                      'Date: $_selectedDate',
+                      style: const TextStyle(fontSize: 16),
+                    ),
                     TextButton.icon(
                       onPressed: _presentDatePicker,
                       icon: const Icon(Icons.calendar_month),
@@ -111,7 +117,10 @@ class _AddScreenState extends State<AddScreen> {
                 foregroundColor: Colors.black87,
                 padding: const EdgeInsets.symmetric(vertical: 16),
               ),
-              child: const Text('Save Expense', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+              child: const Text(
+                'Add Expense',
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              ),
             ),
           ],
         ),

@@ -14,7 +14,8 @@ class ListScreen extends StatefulWidget {
 
 class _ListScreenState extends State<ListScreen> {
   double _total = 0.0;
-  String? _selectedDate = '${DateTime.now().day.toString().padLeft(2, '0')}-${DateTime.now().month.toString().padLeft(2, '0')}-${DateTime.now().year}';
+  String? _selectedDate =
+      '${DateTime.now().day.toString().padLeft(2, '0')}-${DateTime.now().month.toString().padLeft(2, '0')}-${DateTime.now().year}';
   void _deleteSpending(Expense itemtodelete) {
     setState(() {
       widget.expenses.remove(itemtodelete);
@@ -27,11 +28,9 @@ class _ListScreenState extends State<ListScreen> {
       );
     });
   }
+
   Future<void> _NavigateAndAdd() async {
-    final newExpense = await Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => AddScreen()),
-    );
+    final newExpense = await Navigator.pushNamed(context, '/add');
 
     if (newExpense != null && newExpense is Expense) {
       setState(() {
@@ -41,9 +40,10 @@ class _ListScreenState extends State<ListScreen> {
   }
 
   Future<void> _NavigateAndEdit(Expense expenseToEdit) async {
-    final editedExpense = await Navigator.push(
+    final editedExpense = await Navigator.pushNamed(
       context,
-      MaterialPageRoute(builder: (context) => EditScreen(expense: expenseToEdit)),
+      '/edit',
+      arguments: expenseToEdit,
     );
 
     if (editedExpense != null && editedExpense is Expense) {
@@ -145,7 +145,8 @@ class _ListScreenState extends State<ListScreen> {
                         padding: const EdgeInsets.all(8.0),
                         child: IconButton(
                           icon: Icon(Icons.edit, color: Colors.blue, size: 24),
-                          onPressed: () => _NavigateAndEdit(filteredList[index]),
+                          onPressed: () =>
+                              _NavigateAndEdit(filteredList[index]),
                         ),
                       ),
                       Padding(
@@ -166,7 +167,7 @@ class _ListScreenState extends State<ListScreen> {
             child: Padding(
               padding: const EdgeInsets.all(20),
               child: FloatingActionButton(
-                onPressed: ()=>_NavigateAndAdd(),
+                onPressed: _NavigateAndAdd,
                 child: Icon(Icons.add),
               ),
             ),
