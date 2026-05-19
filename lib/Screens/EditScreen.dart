@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:expense_management/Screens/Expense.dart';
+
 class EditScreen extends StatefulWidget {
   final Expense expense;
 
@@ -8,6 +9,7 @@ class EditScreen extends StatefulWidget {
   @override
   State<EditScreen> createState() => _EditScreenState();
 }
+
 class _EditScreenState extends State<EditScreen> {
   late TextEditingController _typeController;
   late TextEditingController _amountController;
@@ -17,7 +19,9 @@ class _EditScreenState extends State<EditScreen> {
   void initState() {
     super.initState();
     _typeController = TextEditingController(text: widget.expense.type);
-    _amountController = TextEditingController(text: widget.expense.amount.toString());
+    _amountController = TextEditingController(
+      text: widget.expense.amount.toString(),
+    );
     _selectedDate = widget.expense.date;
   }
 
@@ -30,7 +34,8 @@ class _EditScreenState extends State<EditScreen> {
     );
     if (picked != null) {
       setState(() {
-        _selectedDate = '${picked.day.toString().padLeft(2, '0')}-${picked.month.toString().padLeft(2, '0')}-${picked.year}';
+        _selectedDate =
+            '${picked.day.toString().padLeft(2, '0')}-${picked.month.toString().padLeft(2, '0')}-${picked.year}';
       });
     }
   }
@@ -47,11 +52,7 @@ class _EditScreenState extends State<EditScreen> {
     }
 
     Navigator.of(context).pop(
-      Expense(
-        date: _selectedDate,
-        type: enteredType,
-        amount: enteredAmount,
-      ),
+      Expense(date: _selectedDate, type: enteredType, amount: enteredAmount),
     );
   }
 
@@ -91,10 +92,7 @@ class _EditScreenState extends State<EditScreen> {
               ],
             ),
             Spacer(),
-            ElevatedButton(
-              onPressed: _submitData,
-              child: Text('Save Changes'),
-            ),
+            ElevatedButton(onPressed: _submitData, child: Text('Save Changes')),
           ],
         ),
       ),
