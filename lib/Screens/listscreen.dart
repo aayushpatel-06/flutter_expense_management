@@ -14,10 +14,16 @@ class _ListScreenState extends State<ListScreen> {
   double _total = 0.0;
   String? _selectedDate;
 
-  void _deleteSpending(spendings itemtodelete) {
+  void _deleteSpending(Expense itemtodelete) {
     setState(() {
-      _spendingsList.remove(itemtodelete);
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Deleted: ${itemtodelete.type} - ₹${itemtodelete.amount.toStringAsFixed(2)}')));
+      widget.expenses.remove(itemtodelete);
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+            'Deleted: ${itemtodelete.type} - ₹${itemtodelete.amount.toStringAsFixed(2)}',
+          ),
+        ),
+      );
     });
   }
 
@@ -53,45 +59,36 @@ class _ListScreenState extends State<ListScreen> {
 
     return Container(
       width: double.infinity,
-
       child: Column(
         children: [
           InkWell(
             onTap: () => _selectDate(context),
-
             child: Text(
               _selectedDate == null
                   ? 'Select Filter Date'
                   : 'Selected Date: $_selectedDate',
-
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
           ),
-
           Text(
             'Total:',
             style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
           ),
-
           Text(
             '$_total',
             style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
           ),
-
           Expanded(
             child: ListView.builder(
               itemCount: filteredList.length,
-
               itemBuilder: (context, index) => Card(
                 elevation: 5,
                 shadowColor: Colors.grey,
-
                 child: Container(
                   decoration: BoxDecoration(
                     gradient: LinearGradient(
                       begin: Alignment.topCenter,
                       end: Alignment.bottomCenter,
-
                       colors: [
                         Color(0xFFFFFFFF),
                         Color(0xFFEAFBF4),
@@ -99,36 +96,28 @@ class _ListScreenState extends State<ListScreen> {
                       ],
                     ),
                   ),
-
                   padding: EdgeInsets.all(16),
-
                   child: Row(
                     children: [
                       Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-
                         children: [
                           Text(
-                            'Type: ${filteredList[index].type}',
+                            'Type:${filteredList[index].type}',
                             style: TextStyle(fontSize: 18),
                           ),
-
                           Text(
                             'Amount: ₹${filteredList[index].amount.toStringAsFixed(2)}',
                             style: TextStyle(fontSize: 16),
                           ),
                         ],
                       ),
-
                       Spacer(),
-
                       Icon(Icons.edit, color: Colors.blue, size: 24),
-
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: IconButton(
                           icon: Icon(Icons.delete, color: Colors.red, size: 24),
-                          onPressed: () => _deleteSpending(filteredlist[index]),
+                          onPressed: () => _deleteSpending(filteredList[index]),
                         ),
                       ),
                     ],
@@ -136,14 +125,19 @@ class _ListScreenState extends State<ListScreen> {
                 ),
               ),
             ),
-              Align(
-                alignment: Alignment.bottomRight,
-                child: Padding(
-                  padding: const EdgeInsets.all(20),
-                  child: FloatingActionButton(onPressed: () {}, child: Icon(Icons.add),),
-               ))
-            ],
-         ),
-     );
+          ),
+          Align(
+            alignment: Alignment.bottomRight,
+            child: Padding(
+              padding: const EdgeInsets.all(20),
+              child: FloatingActionButton(
+                onPressed: () {},
+                child: Icon(Icons.add),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }
