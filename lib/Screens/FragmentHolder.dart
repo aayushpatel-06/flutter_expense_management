@@ -31,6 +31,6 @@ class FragmentHolder extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListScreen(expenses : expenses);
+    return ListScreen(expenses: expenses);
   }
 }
