@@ -18,28 +18,34 @@ class _MyWidgetState extends State<MyWidget> {
   double _total = 0.0;
   String? _selectedDate;
   final List<spendings> _spendingsList = [
-  spendings(date: '01-01-2024', type: 'Food', amount: 20.0),
-  spendings(date: '02-01-2024', type: 'Transport', amount: 15.0),
-  spendings(date: '03-01-2024', type: 'Entertainment', amount: 30.0),
-  spendings(date: '29-03-2024', type: 'Utilities', amount: 25.0),
-  spendings(date: '30-03-2024', type: 'Groceries', amount: 50.0),
-  spendings(date: '01-04-2024', type: 'Entertainment', amount: 40.0),
-  spendings(date: '02-04-2024', type: 'Transport', amount: 10.0),
-  spendings(date: '01-01-2024', type: 'Food', amount: 20.0),
-  spendings(date: '02-01-2024', type: 'Transport', amount: 15.0),
-  spendings(date: '03-01-2024', type: 'Entertainment', amount: 30.0),
-  spendings(date: '29-03-2024', type: 'Utilities', amount: 25.0),
-  spendings(date: '30-03-2024', type: 'Groceries', amount: 50.0),
-  spendings(date: '01-04-2024', type: 'Entertainment', amount: 40.0),
-  spendings(date: '02-04-2024', type: 'Transport', amount: 10.0),
-  spendings(date: '01-01-2024', type: 'Food', amount: 20.0),
-  spendings(date: '02-01-2024', type: 'Transport', amount: 15.0),
-  spendings(date: '03-01-2024', type: 'Entertainment', amount: 30.0),
-  spendings(date: '29-03-2024', type: 'Utilities', amount: 25.0),
-  spendings(date: '30-03-2024', type: 'Groceries', amount: 50.0),
-  spendings(date: '01-04-2024', type: 'Entertainment', amount: 40.0),
-  spendings(date: '02-04-2024', type: 'Transport', amount: 10.0),
+  spendings(date: '01-01-2026', type: 'Food', amount: 20.0),
+  spendings(date: '02-01-2026', type: 'Transport', amount: 15.0),
+  spendings(date: '03-01-2026', type: 'Entertainment', amount: 30.0),
+  spendings(date: '29-03-2026', type: 'Utilities', amount: 25.0),
+  spendings(date: '30-03-2026', type: 'Groceries', amount: 50.0),
+  spendings(date: '01-04-2026', type: 'Entertainment', amount: 40.0),
+  spendings(date: '02-04-2026', type: 'Transport', amount: 10.0),
+  spendings(date: '01-01-2026', type: 'Food', amount: 20.0),
+  spendings(date: '02-01-2026', type: 'Transport', amount: 15.0),
+  spendings(date: '03-01-2026', type: 'Entertainment', amount: 30.0),
+  spendings(date: '29-03-2026', type: 'Utilities', amount: 25.0),
+  spendings(date: '30-03-2026', type: 'Groceries', amount: 50.0),
+  spendings(date: '01-04-2026', type: 'Entertainment', amount: 40.0),
+  spendings(date: '02-04-2026', type: 'Transport', amount: 10.0),
+  spendings(date: '01-01-2026', type: 'Food', amount: 20.0),
+  spendings(date: '02-01-2026', type: 'Transport', amount: 15.0),
+  spendings(date: '03-01-2026', type: 'Entertainment', amount: 30.0),
+  spendings(date: '29-03-2026', type: 'Utilities', amount: 25.0),
+  spendings(date: '30-03-2026', type: 'Groceries', amount: 50.0),
+  spendings(date: '01-04-2026', type: 'Entertainment', amount: 40.0),
+  spendings(date: '02-04-2026', type: 'Transport', amount: 10.0),
 ];
+  void _deleteSpending(spendings itemtodelete) {
+    setState(() {
+      _spendingsList.remove(itemtodelete);
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Deleted: ${itemtodelete.type} - ₹${itemtodelete.amount.toStringAsFixed(2)}')));
+    });
+  }
   Future<void> _selectDate(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
       context: context,
@@ -95,7 +101,10 @@ class _MyWidgetState extends State<MyWidget> {
                           Icon(Icons.edit, color: Colors.blue, size: 24),
                           Padding(
                             padding: const EdgeInsets.all(8.0),
-                            child: Icon( Icons.delete, color: Colors.red, size: 24),
+                            child: IconButton(
+                              icon: Icon(Icons.delete, color: Colors.red, size: 24),
+                              onPressed: () => _deleteSpending(filteredlist[index]),
+                            ),
                           ),
                         ],
                       ),
@@ -105,7 +114,10 @@ class _MyWidgetState extends State<MyWidget> {
               ),
               Align(
                 alignment: Alignment.bottomRight,
-                child: FloatingActionButton(onPressed: (){}, child: Icon(Icons.add),))
+                child: Padding(
+                  padding: const EdgeInsets.all(20),
+                  child: FloatingActionButton(onPressed: () {}, child: Icon(Icons.add),),
+                ))
             ],
           ),
       );
