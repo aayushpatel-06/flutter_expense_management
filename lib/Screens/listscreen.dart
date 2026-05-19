@@ -14,6 +14,13 @@ class _ListScreenState extends State<ListScreen> {
   double _total = 0.0;
   String? _selectedDate;
 
+  void _deleteSpending(spendings itemtodelete) {
+    setState(() {
+      _spendingsList.remove(itemtodelete);
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Deleted: ${itemtodelete.type} - ₹${itemtodelete.amount.toStringAsFixed(2)}')));
+    });
+  }
+
   Future<void> _selectDate(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
       context: context,
@@ -119,26 +126,24 @@ class _ListScreenState extends State<ListScreen> {
 
                       Padding(
                         padding: const EdgeInsets.all(8.0),
-
-                        child: Icon(Icons.delete, color: Colors.red, size: 24),
+                        child: IconButton(
+                          icon: Icon(Icons.delete, color: Colors.red, size: 24),
+                          onPressed: () => _deleteSpending(filteredlist[index]),
+                        ),
                       ),
                     ],
                   ),
                 ),
               ),
             ),
-          ),
-
-          Align(
-            alignment: Alignment.bottomRight,
-
-            child: FloatingActionButton(
-              onPressed: () {},
-              child: Icon(Icons.add),
-            ),
-          ),
-        ],
-      ),
-    );
+              Align(
+                alignment: Alignment.bottomRight,
+                child: Padding(
+                  padding: const EdgeInsets.all(20),
+                  child: FloatingActionButton(onPressed: () {}, child: Icon(Icons.add),),
+               ))
+            ],
+         ),
+     );
   }
 }
