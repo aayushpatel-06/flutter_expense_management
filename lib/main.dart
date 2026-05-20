@@ -2,6 +2,7 @@ import 'package:expense_management/Screens/AddScreen.dart';
 import 'package:expense_management/Screens/EditScreen.dart';
 import 'package:expense_management/Screens/Expense.dart';
 import 'package:expense_management/Screens/FragmentHolder.dart';
+import 'package:expense_management/Screens/SplashScreen.dart';
 // import 'package:expense_management/Screens/listscreen.dart';
 // import 'package:expense_management/Screens/SplashScreen.dart';
 import 'package:flutter/material.dart';
@@ -17,9 +18,13 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: FragmentHolder(),
-      onGenerateRoute: (settings) {           //Navigation routes using switch case
+      home: SplashScreen(),
+      onGenerateRoute: (settings) {
+        //Navigation routes using switch case
         switch (settings.name) {
+          case '/':
+          case '/list':
+            return MaterialPageRoute(builder: (context) => FragmentHolder());
           case '/add':
             return MaterialPageRoute(builder: (context) => AddScreen());
 
