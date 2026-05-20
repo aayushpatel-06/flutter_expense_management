@@ -1,5 +1,5 @@
 import 'dart:async';
-import 'package:expense_management/Screens/FragmentHolder.dart';
+// import 'package:expense_management/Screens/FragmentHolder.dart';
 import 'package:flutter/material.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -15,10 +15,7 @@ class _SplashScreenState extends State<SplashScreen> {
     super.initState();
     Timer(Duration(seconds: 3), () {
       if (mounted) {
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (context) => FragmentHolder()),
-        );
+        Navigator.pushReplacementNamed(context, '/list');
       }
     });
   }
