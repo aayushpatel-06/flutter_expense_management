@@ -1,5 +1,3 @@
-import 'package:expense_management/Screens/AddScreen.dart';
-import 'package:expense_management/Screens/EditScreen.dart';
 import 'package:expense_management/Screens/listscreen.dart';
 import 'package:expense_management/Screens/Expense.dart';
 import 'package:flutter/material.dart';
