@@ -125,7 +125,7 @@ class _AddScreenState extends State<AddScreen> {
                     labelText: 'Expense Type',
                     labelStyle: const TextStyle(color: mutedGreen),
                     filled: true,
-                    fillColor: Colors.white.withOpacity(0.9),
+                    fillColor: Colors.white.withValues(alpha: 0.9),
                     prefixIcon: const Icon(Icons.label_outline, color: emeraldGreen),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(16),
@@ -154,7 +154,7 @@ class _AddScreenState extends State<AddScreen> {
                     labelText: 'Amount',
                     labelStyle: const TextStyle(color: mutedGreen),
                     filled: true,
-                    fillColor: Colors.white.withOpacity(0.9),
+                    fillColor: Colors.white.withValues(alpha: 0.9),
                     prefixText: '₹ ',
                     prefixStyle: const TextStyle(
                       color: emeraldGreen,
@@ -180,11 +180,11 @@ class _AddScreenState extends State<AddScreen> {
                 Container(
                   padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                   decoration: BoxDecoration(
-                    color: Colors.white.withOpacity(0.9),
+                    color: Colors.white.withValues(alpha: 0.9),
                     borderRadius: BorderRadius.circular(16),
                     boxShadow: [
                       BoxShadow(
-                        color: darkGreen.withOpacity(0.05),
+                        color: darkGreen.withValues(alpha: 0.05),
                         blurRadius: 10,
                         offset: const Offset(0, 4),
                       ),
@@ -198,7 +198,7 @@ class _AddScreenState extends State<AddScreen> {
                           Container(
                             padding: const EdgeInsets.all(8),
                             decoration: BoxDecoration(
-                              color: emeraldGreen.withOpacity(0.15),
+                              color: emeraldGreen.withValues(alpha: 0.15),
                               shape: BoxShape.circle,
                             ),
                             child: const Icon(
@@ -255,7 +255,7 @@ class _AddScreenState extends State<AddScreen> {
                   decoration: BoxDecoration(
                     boxShadow: [
                       BoxShadow(
-                        color: emeraldGreen.withOpacity(0.3),
+                        color: emeraldGreen.withValues(alpha: 0.3),
                         blurRadius: 15,
                         offset: const Offset(0, 8),
                       ),
