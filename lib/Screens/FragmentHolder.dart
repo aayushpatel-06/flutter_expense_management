@@ -1,5 +1,6 @@
 import 'package:expense_management/Screens/AddScreen.dart';
 import 'package:expense_management/Screens/EditScreen.dart';
+import 'package:expense_management/Screens/SplashScreen.dart';
 import 'package:expense_management/Screens/listscreen.dart';
 import 'package:expense_management/Screens/Expense.dart';
 import 'package:flutter/material.dart';
@@ -61,10 +62,13 @@ class _FragmentHolderState extends State<FragmentHolder> {
   @override
   Widget build(BuildContext context) {
     return Navigator(
-      initialRoute: '/list',
+      initialRoute: '/splash',
 
       onGenerateRoute: (settings) {
         switch (settings.name) {
+          case '/splash':
+            return MaterialPageRoute(builder: (context) => SplashScreen());
+
           case '/list':
             return MaterialPageRoute(
               builder: (context) => ListScreen(expenses: expenses),
