@@ -1,3 +1,5 @@
+import 'package:expense_management/Screens/AddScreen.dart';
+import 'package:expense_management/Screens/EditScreen.dart';
 import 'package:expense_management/Screens/listscreen.dart';
 import 'package:expense_management/Screens/Expense.dart';
 import 'package:flutter/material.dart';
@@ -58,6 +60,33 @@ class _FragmentHolderState extends State<FragmentHolder> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body: ListScreen(expenses: expenses));
+    return Navigator(
+      initialRoute: '/list',
+
+      onGenerateRoute: (settings) {
+        switch (settings.name) {
+          case '/list':
+            return MaterialPageRoute(
+              builder: (context) => ListScreen(expenses: expenses),
+            );
+
+          case '/add':
+            return MaterialPageRoute(builder: (context) => const AddScreen());
+
+          case '/edit':
+            final expense = settings.arguments as Expense;
+
+            return MaterialPageRoute(
+              builder: (context) => EditScreen(expense: expense),
+            );
+
+          default:
+            return MaterialPageRoute(
+              builder: (context) =>
+                  const Scaffold(body: Center(child: Text('Route Not Found'))),
+            );
+        }
+      },
+    );
   }
 }
