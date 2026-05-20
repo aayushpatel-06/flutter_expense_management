@@ -66,6 +66,19 @@ class _ListScreenState extends State<ListScreen> {
       initialDate: DateTime.now(),
       firstDate: DateTime(2000),
       lastDate: DateTime(2100),
+
+      builder: (context, child) {
+        return Theme(
+          data: Theme.of(context).copyWith(
+            colorScheme: const ColorScheme.light(
+              primary: Color(0xFF00A86B),
+              onPrimary: Colors.white,
+              onSurface: Color(0xFF0A3D2A),
+            ),
+          ),
+          child: child!,
+        );
+      },
     );
 
     if (picked != null) {
