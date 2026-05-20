@@ -16,20 +16,75 @@ class _ListScreenState extends State<ListScreen> {
   String? _selectedDate =
       '${DateTime.now().day.toString().padLeft(2, '0')}-${DateTime.now().month.toString().padLeft(2, '0')}-${DateTime.now().year}';
 
-  void _deleteSpending(Expense itemtodelete) {
-    setState(() {
-      widget.expenses.remove(itemtodelete);
-
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          backgroundColor: const Color(0xFF0A3D2A),
-          behavior: SnackBarBehavior.floating,
-          content: Text(
-            'Deleted: ${itemtodelete.type} - ₹${itemtodelete.amount.toStringAsFixed(2)}',
+void _deleteSpending(Expense itemtodelete) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(18),
           ),
-        ),
-      );
-    });
+          backgroundColor: const Color(0xFFF3FFF9), // Matches your card gradient
+          title: const Text(
+            'Delete Expense',
+            style: TextStyle(
+              color: Color(0xFF0A3D2A),
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          content: Text(
+            'Are you sure you want to delete ${itemtodelete.type} (₹${itemtodelete.amount.toStringAsFixed(2)})?',
+            style: const TextStyle(
+              color: Color(0xFF0A3D2A),
+              fontSize: 16,
+            ),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop(); // Close the dialog without deleting
+              },
+              child: const Text(
+                'Cancel',
+                style: TextStyle(
+                  color: Color(0xFF00A86B),
+                  fontWeight: FontWeight.w600,
+                  fontSize: 16,
+                ),
+              ),
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop(); // Close the dialog first
+                
+                // Then perform the actual deletion
+                setState(() {
+                  widget.expenses.remove(itemtodelete);
+
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      backgroundColor: const Color(0xFF0A3D2A),
+                      behavior: SnackBarBehavior.floating,
+                      content: Text(
+                        'Deleted: ${itemtodelete.type} - ₹${itemtodelete.amount.toStringAsFixed(2)}',
+                      ),
+                    ),
+                  );
+                });
+              },
+              child: const Text(
+                'Delete',
+                style: TextStyle(
+                  color: Colors.red,
+                  fontWeight: FontWeight.w700,
+                  fontSize: 16,
+                ),
+              ),
+            ),
+          ],
+        );
+      },
+    );
   }
 
   Future<void> _NavigateAndAdd() async {
