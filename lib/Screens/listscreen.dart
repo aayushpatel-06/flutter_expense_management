@@ -1,5 +1,7 @@
+import 'dart:convert';
 import 'package:expense_management/Screens/Expense.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ListScreen extends StatefulWidget {
   final List<Expense> expenses;
@@ -16,7 +18,8 @@ class _ListScreenState extends State<ListScreen> {
   String? _selectedDate =
       '${DateTime.now().day.toString().padLeft(2, '0')}-${DateTime.now().month.toString().padLeft(2, '0')}-${DateTime.now().year}';
 
-void _deleteSpending(Expense itemtodelete) {
+  //Delete function
+  void _deleteSpending(Expense itemtodelete) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -24,7 +27,9 @@ void _deleteSpending(Expense itemtodelete) {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(18),
           ),
-          backgroundColor: const Color(0xFFF3FFF9), // Matches your card gradient
+          backgroundColor: const Color(
+            0xFFF3FFF9,
+          ), // Matches your card gradient
           title: const Text(
             'Delete Expense',
             style: TextStyle(
@@ -34,15 +39,14 @@ void _deleteSpending(Expense itemtodelete) {
           ),
           content: Text(
             'Are you sure you want to delete ${itemtodelete.type} (₹${itemtodelete.amount.toStringAsFixed(2)})?',
-            style: const TextStyle(
-              color: Color(0xFF0A3D2A),
-              fontSize: 16,
-            ),
+            style: const TextStyle(color: Color(0xFF0A3D2A), fontSize: 16),
           ),
           actions: [
             TextButton(
               onPressed: () {
-                Navigator.of(context).pop(); // Close the dialog without deleting
+                Navigator.of(
+                  context,
+                ).pop(); // Close the dialog without deleting
               },
               child: const Text(
                 'Cancel',
@@ -56,7 +60,7 @@ void _deleteSpending(Expense itemtodelete) {
             TextButton(
               onPressed: () {
                 Navigator.of(context).pop(); // Close the dialog first
-                
+
                 // Then perform the actual deletion
                 setState(() {
                   widget.expenses.remove(itemtodelete);
@@ -71,6 +75,7 @@ void _deleteSpending(Expense itemtodelete) {
                     ),
                   );
                 });
+                saveList();
               },
               child: const Text(
                 'Delete',
@@ -87,6 +92,7 @@ void _deleteSpending(Expense itemtodelete) {
     );
   }
 
+  //Add function
   Future<void> _NavigateAndAdd() async {
     final newExpense = await Navigator.pushNamed(context, '/add');
 
@@ -94,9 +100,11 @@ void _deleteSpending(Expense itemtodelete) {
       setState(() {
         widget.expenses.add(newExpense);
       });
+      saveList();
     }
   }
 
+  //Edit Function
   Future<void> _NavigateAndEdit(Expense expenseToEdit) async {
     final editedExpense = await Navigator.pushNamed(
       context,
@@ -112,7 +120,19 @@ void _deleteSpending(Expense itemtodelete) {
           widget.expenses[index] = editedExpense;
         }
       });
+      saveList();
     }
+  }
+
+  //Shared Pref function
+  Future<void> saveList() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    String jsonString = jsonEncode(
+      widget.expenses.map((item) => item.toJson()).toList(),
+    );
+
+    await prefs.setString('my_object_list_key', jsonString);
   }
 
   Future<void> _selectDate(BuildContext context) async {
