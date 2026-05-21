@@ -7,4 +7,12 @@ class Expense {
   Map<String, dynamic> toJson() {
     return {"date": date, "type": type, "amount": amount};
   }
+
+  factory Expense.fromJson(Map<String, dynamic> json) {
+    return Expense(
+      date: json['date'],
+      type: json['type'],
+      amount: json['amount'],
+    );
+  }
 }

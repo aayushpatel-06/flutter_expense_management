@@ -13,6 +13,10 @@ class ListScreen extends StatefulWidget {
 }
 
 class _ListScreenState extends State<ListScreen> {
+  _ListScreenState() {
+    loadList();
+  }
+
   double _total = 0.0;
 
   String? _selectedDate =
@@ -124,7 +128,7 @@ class _ListScreenState extends State<ListScreen> {
     }
   }
 
-  //Shared Pref function
+  //Function to store the list into string form
   Future<void> saveList() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
 
@@ -133,6 +137,25 @@ class _ListScreenState extends State<ListScreen> {
     );
 
     await prefs.setString('my_object_list_key', jsonString);
+  }
+
+  //Function to load the string into the list
+  Future<void> loadList() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    String? jsonString = prefs.getString('my_object_list_key');
+    if (jsonString == null) return;
+
+    List decodedData = jsonDecode(jsonString);
+
+    List<Expense> loadedExpense = decodedData
+        .map((item) => Expense.fromJson(item))
+        .toList();
+
+    setState(() {
+      widget.expenses.clear();
+      widget.expenses.addAll(loadedExpense);
+    });
   }
 
   Future<void> _selectDate(BuildContext context) async {
