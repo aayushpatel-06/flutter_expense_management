@@ -142,19 +142,7 @@ class _EditScreenState extends State<EditScreen> {
               crossAxisAlignment: CrossAxisAlignment.stretch,
 
               children: [
-                const SizedBox(height: 10),
-
-                Text(
-                  "Update your expense details",
-
-                  style: TextStyle(
-                    fontSize: 15,
-                    fontWeight: FontWeight.w500,
-                    color: Color.fromRGBO(10, 60, 40, 0.6),
-                  ),
-                ),
-
-                const SizedBox(height: 34),
+                const SizedBox(height: 3),
 
                 // TYPE FIELD
                 TextField(
@@ -355,6 +343,8 @@ class _EditScreenState extends State<EditScreen> {
                     ],
                   ),
                 ),
+
+                SizedBox(height: 5),
 
                 const Spacer(),
 
