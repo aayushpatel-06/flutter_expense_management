@@ -208,6 +208,7 @@ class _ListScreenState extends State<ListScreen> {
         backgroundColor: const Color(0xFF00A86B),
         foregroundColor: Colors.white,
         elevation: 4,
+        shape: CircleBorder(),
         onPressed: _NavigateAndAdd,
         child: const Icon(Icons.add, size: 30),
       ),
@@ -230,7 +231,7 @@ class _ListScreenState extends State<ListScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const SizedBox(height: 12),
+                const SizedBox(height: 5),
 
                 Text(
                   "TrackEx",
@@ -243,8 +244,6 @@ class _ListScreenState extends State<ListScreen> {
                   ),
                 ),
 
-                const SizedBox(height: 6),
-
                 Text(
                   "Track your daily spending easily",
                   style: TextStyle(
@@ -254,7 +253,7 @@ class _ListScreenState extends State<ListScreen> {
                   ),
                 ),
 
-                const SizedBox(height: 28),
+                const SizedBox(height: 8),
 
                 InkWell(
                   borderRadius: BorderRadius.circular(18),
@@ -301,7 +300,7 @@ class _ListScreenState extends State<ListScreen> {
                   ),
                 ),
 
-                const SizedBox(height: 30),
+                const SizedBox(height: 8),
 
                 Text(
                   'Total Spending',
@@ -317,13 +316,13 @@ class _ListScreenState extends State<ListScreen> {
                 Text(
                   '₹${_total.toStringAsFixed(2)}',
                   style: const TextStyle(
-                    fontSize: 38,
+                    fontSize: 33,
                     fontWeight: FontWeight.w800,
                     color: Color(0xFF0A3D2A),
                   ),
                 ),
 
-                const SizedBox(height: 30),
+                const SizedBox(height: 8),
 
                 Expanded(
                   child: filteredList.isEmpty
