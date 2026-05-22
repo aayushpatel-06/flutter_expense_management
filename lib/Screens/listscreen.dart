@@ -161,19 +161,108 @@ class _ListScreenState extends State<ListScreen> {
   Future<void> _selectDate(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
       context: context,
+
       initialDate: DateTime.now(),
+
       firstDate: DateTime(2000),
-      lastDate: DateTime(2100),
+
+      // USER CANNOT SELECT FUTURE DATES
+      lastDate: DateTime.now(),
 
       builder: (context, child) {
         return Theme(
           data: Theme.of(context).copyWith(
-            colorScheme: const ColorScheme.light(
-              primary: Color(0xFF00A86B),
+            dialogTheme: DialogThemeData(
+              backgroundColor: const Color(0xFF140824),
+
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(28),
+              ),
+            ),
+
+            colorScheme: const ColorScheme.dark(
+              primary: Color(0xFFB14EFF),
+
               onPrimary: Colors.white,
-              onSurface: Color(0xFF0A3D2A),
+
+              surface: Color(0xFF1E0D3A),
+
+              onSurface: Colors.white,
+            ),
+
+            scaffoldBackgroundColor: const Color(0xFF140824),
+
+            textButtonTheme: TextButtonThemeData(
+              style: TextButton.styleFrom(
+                foregroundColor: const Color(0xFFB14EFF),
+
+                textStyle: const TextStyle(
+                  fontWeight: FontWeight.w700,
+
+                  fontSize: 16,
+                ),
+              ),
+            ),
+
+            datePickerTheme: DatePickerThemeData(
+              backgroundColor: const Color(0xFF140824),
+
+              surfaceTintColor: Colors.transparent,
+
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(28),
+              ),
+
+              headerBackgroundColor: const Color(0xFFB14EFF),
+
+              headerForegroundColor: Colors.white,
+
+              dividerColor: Colors.white.withValues(alpha: 0.08),
+
+              weekdayStyle: TextStyle(
+                color: Colors.white.withValues(alpha: 0.65),
+
+                fontWeight: FontWeight.w600,
+              ),
+
+              dayStyle: const TextStyle(
+                color: Colors.white,
+
+                fontWeight: FontWeight.w500,
+              ),
+
+              yearStyle: const TextStyle(color: Colors.white),
+
+              todayForegroundColor: WidgetStateProperty.all(Colors.white),
+
+              // CURRENT DAY BORDER
+              todayBorder: BorderSide(color: const Color(0xFFB14EFF), width: 2),
+
+              // SELECTED DAY BG
+              dayBackgroundColor: WidgetStateProperty.resolveWith((states) {
+                if (states.contains(WidgetState.selected)) {
+                  return const Color(0xFFB14EFF);
+                }
+
+                return Colors.transparent;
+              }),
+
+              // SELECTED DAY TEXT
+              dayForegroundColor: WidgetStateProperty.resolveWith((states) {
+                if (states.contains(WidgetState.selected)) {
+                  return Colors.white;
+                }
+
+                // DISABLED FUTURE DATES
+                if (states.contains(WidgetState.disabled)) {
+                  return Colors.white.withValues(alpha: 0.18);
+                }
+
+                return Colors.white;
+              }),
             ),
           ),
+
           child: child!,
         );
       },
@@ -204,13 +293,37 @@ class _ListScreenState extends State<ListScreen> {
     return Scaffold(
       backgroundColor: Colors.transparent,
 
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: const Color(0xFF00A86B),
-        foregroundColor: Colors.white,
-        elevation: 4,
-        shape: CircleBorder(),
-        onPressed: _NavigateAndAdd,
-        child: const Icon(Icons.add, size: 30),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+
+      floatingActionButton: Container(
+        height: 65,
+        width: 65,
+
+        decoration: BoxDecoration(
+          shape: BoxShape.circle,
+
+          gradient: const LinearGradient(
+            colors: [Color(0xFFB14EFF), Color(0xFF7B2DFF)],
+          ),
+
+          boxShadow: [
+            BoxShadow(
+              color: const Color(0xFFB14EFF).withValues(alpha: 0.45),
+
+              blurRadius: 25,
+              spreadRadius: 2,
+            ),
+          ],
+        ),
+
+        child: FloatingActionButton(
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+
+          onPressed: _NavigateAndAdd,
+
+          child: const Icon(Icons.add, size: 34, color: Colors.white),
+        ),
       ),
 
       body: Container(
@@ -220,79 +333,140 @@ class _ListScreenState extends State<ListScreen> {
           gradient: LinearGradient(
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
-            colors: [Color(0xFFD4F7F0), Color(0xFFAAE8D0), Color(0xFF66CCB0)],
+
+            colors: [
+              Color(0xFF0B0617),
+              Color(0xFF140824),
+              Color(0xFF1E0D3A),
+              Color(0xFF102B4E),
+            ],
           ),
         ),
 
         child: SafeArea(
           child: Padding(
-            padding: const EdgeInsets.only(top: 18, left: 18, right: 18),
+            padding: const EdgeInsets.only(top: 24, left: 22, right: 22),
 
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
+
               children: [
-                const SizedBox(height: 5),
-
-                Text(
+                // HEADER
+                const Text(
                   "TrackEx",
+
                   style: TextStyle(
-                    fontSize: 34,
+                    fontSize: 38,
+
                     fontWeight: FontWeight.w800,
-                    fontStyle: FontStyle.italic,
-                    color: const Color(0xFF0A3D2A),
-                    letterSpacing: 1.2,
+
+                    color: Colors.white,
                   ),
                 ),
 
-                Text(
-                  "Track your daily spending easily",
-                  style: TextStyle(
-                    fontSize: 15,
-                    color: Color.fromRGBO(10, 60, 40, 0.6),
-                    fontWeight: FontWeight.w500,
+                const SizedBox(height: 25),
+
+                // BALANCE CARD
+                Container(
+                  padding: const EdgeInsets.all(22),
+
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(28),
+
+                    gradient: const LinearGradient(
+                      colors: [Color(0xFFB14EFF), Color(0xFF8E44FF)],
+                    ),
+
+                    boxShadow: [
+                      BoxShadow(
+                        color: const Color(0xFFB14EFF).withValues(alpha: 0.30),
+
+                        blurRadius: 30,
+                        spreadRadius: 2,
+                      ),
+                    ],
+                  ),
+
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+
+                    children: [
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+
+                        children: [
+                          Text(
+                            "Total Expenditure",
+
+                            style: TextStyle(
+                              color: Colors.white.withValues(alpha: 0.75),
+
+                              fontSize: 16,
+                            ),
+                          ),
+
+                          const SizedBox(height: 8),
+
+                          Text(
+                            '₹${_total.toStringAsFixed(2)}',
+
+                            style: const TextStyle(
+                              fontSize: 36,
+
+                              fontWeight: FontWeight.w800,
+
+                              color: Colors.white,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
                   ),
                 ),
 
-                const SizedBox(height: 8),
+                const SizedBox(height: 24),
 
+                // DATE FILTER
                 InkWell(
-                  borderRadius: BorderRadius.circular(18),
+                  borderRadius: BorderRadius.circular(20),
+
                   onTap: () => _selectDate(context),
 
                   child: Container(
                     padding: const EdgeInsets.symmetric(
                       horizontal: 18,
-                      vertical: 15,
+                      vertical: 16,
                     ),
 
                     decoration: BoxDecoration(
-                      color: Colors.white.withValues(alpha: 0.18),
+                      borderRadius: BorderRadius.circular(22),
 
-                      borderRadius: BorderRadius.circular(18),
+                      color: Colors.white.withValues(alpha: 0.05),
 
                       border: Border.all(
-                        color: Color.fromRGBO(10, 60, 40, 0.12),
+                        color: Colors.white.withValues(alpha: 0.05),
                       ),
                     ),
 
                     child: Row(
                       children: [
-                        Icon(
+                        const Icon(
                           Icons.calendar_month_rounded,
-                          color: Color(0xFF0A3D2A),
+
+                          color: Colors.white70,
                         ),
 
                         const SizedBox(width: 12),
 
                         Text(
-                          _selectedDate == null
-                              ? 'Select Filter Date'
-                              : '$_selectedDate',
+                          _selectedDate ?? "Select Date",
 
-                          style: TextStyle(
-                            fontSize: 17,
+                          style: const TextStyle(
+                            color: Colors.white,
+
+                            fontSize: 16,
+
                             fontWeight: FontWeight.w600,
-                            color: Color(0xFF0A3D2A),
                           ),
                         ),
                       ],
@@ -300,60 +474,34 @@ class _ListScreenState extends State<ListScreen> {
                   ),
                 ),
 
-                const SizedBox(height: 8),
-
-                Text(
-                  'Total Spending',
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w600,
-                    color: Color.fromRGBO(10, 60, 40, 0.65),
-                  ),
-                ),
-
-                const SizedBox(height: 8),
-
-                Text(
-                  '₹${_total.toStringAsFixed(2)}',
-                  style: const TextStyle(
-                    fontSize: 33,
-                    fontWeight: FontWeight.w800,
-                    color: Color(0xFF0A3D2A),
-                  ),
-                ),
-
-                const SizedBox(height: 8),
+                const SizedBox(height: 25),
 
                 Expanded(
                   child: filteredList.isEmpty
                       ? Center(
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
+
                             children: [
                               Icon(
-                                Icons.receipt_long_outlined,
+                                Icons.receipt_long,
+
                                 size: 85,
-                                color: Color.fromRGBO(10, 60, 40, 0.25),
+
+                                color: Colors.white.withValues(alpha: 0.18),
                               ),
 
-                              const SizedBox(height: 18),
+                              const SizedBox(height: 20),
 
                               Text(
-                                "No expenses found",
+                                "No Expenses Found",
+
                                 style: TextStyle(
-                                  fontSize: 20,
+                                  color: Colors.white.withValues(alpha: 0.65),
+
+                                  fontSize: 22,
+
                                   fontWeight: FontWeight.w700,
-                                  color: Color.fromRGBO(10, 60, 40, 0.55),
-                                ),
-                              ),
-
-                              const SizedBox(height: 8),
-
-                              Text(
-                                "Tap + to add your first expense",
-                                style: TextStyle(
-                                  fontSize: 15,
-                                  color: Color.fromRGBO(10, 60, 40, 0.45),
                                 ),
                               ),
                             ],
@@ -362,34 +510,58 @@ class _ListScreenState extends State<ListScreen> {
                       : ListView.builder(
                           itemCount: filteredList.length,
 
-                          itemBuilder: (context, index) => Card(
-                            elevation: 2,
-                            margin: const EdgeInsets.only(bottom: 16),
+                          itemBuilder: (context, index) {
+                            return Container(
+                              margin: const EdgeInsets.only(bottom: 18),
 
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(22),
-                            ),
-
-                            child: Container(
                               padding: const EdgeInsets.all(18),
 
                               decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(22),
+                                borderRadius: BorderRadius.circular(28),
 
-                                gradient: const LinearGradient(
-                                  begin: Alignment.topLeft,
-                                  end: Alignment.bottomRight,
+                                color: Colors.white.withValues(alpha: 0.05),
 
-                                  colors: [
-                                    Color(0xFFFFFFFF),
-                                    Color(0xFFF3FFF9),
-                                    Color(0xFFD9F7E8),
-                                  ],
+                                border: Border.all(
+                                  color: Colors.white.withValues(alpha: 0.04),
                                 ),
+
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.black.withValues(alpha: 0.12),
+
+                                    blurRadius: 18,
+                                    offset: const Offset(0, 10),
+                                  ),
+                                ],
                               ),
 
                               child: Row(
                                 children: [
+                                  // ICON
+                                  Container(
+                                    height: 60,
+                                    width: 60,
+
+                                    decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+
+                                      color: Colors.white.withValues(
+                                        alpha: 0.08,
+                                      ),
+                                    ),
+
+                                    child: const Icon(
+                                      Icons.account_balance_wallet,
+
+                                      color: Color(0xFFB14EFF),
+
+                                      size: 26,
+                                    ),
+                                  ),
+
+                                  const SizedBox(width: 18),
+
+                                  // TEXTS
                                   Expanded(
                                     child: Column(
                                       crossAxisAlignment:
@@ -401,96 +573,133 @@ class _ListScreenState extends State<ListScreen> {
 
                                           style: const TextStyle(
                                             fontSize: 20,
+
                                             fontWeight: FontWeight.w700,
-                                            color: Color(0xFF0A3D2A),
+
+                                            color: Colors.white,
                                           ),
                                         ),
 
-                                        const SizedBox(height: 8),
-
-                                        Text(
-                                          '₹${filteredList[index].amount.toStringAsFixed(2)}',
-
-                                          style: const TextStyle(
-                                            fontSize: 18,
-                                            fontWeight: FontWeight.w600,
-                                            color: Color(0xFF00A86B),
-                                          ),
-                                        ),
-
-                                        const SizedBox(height: 10),
+                                        const SizedBox(height: 6),
 
                                         Text(
                                           filteredList[index].date,
 
                                           style: TextStyle(
                                             fontSize: 14,
-                                            color: Color.fromRGBO(
-                                              10,
-                                              60,
-                                              40,
-                                              0.5,
+
+                                            color: Colors.white.withValues(
+                                              alpha: 0.45,
                                             ),
-                                            fontWeight: FontWeight.w500,
                                           ),
                                         ),
                                       ],
                                     ),
                                   ),
 
-                                  Row(
+                                  // RIGHT SIDE
+                                  Column(
+                                    crossAxisAlignment: CrossAxisAlignment.end,
+
                                     children: [
                                       Container(
-                                        decoration: BoxDecoration(
-                                          color: Colors.blue.withValues(
-                                            alpha: 0.1,
-                                          ),
-                                          shape: BoxShape.circle,
+                                        padding: const EdgeInsets.symmetric(
+                                          horizontal: 16,
+                                          vertical: 10,
                                         ),
 
-                                        child: IconButton(
-                                          icon: const Icon(
-                                            Icons.edit,
-                                            color: Colors.blue,
-                                            size: 22,
+                                        decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.circular(
+                                            18,
                                           ),
 
-                                          onPressed: () => _NavigateAndEdit(
-                                            filteredList[index],
+                                          border: Border.all(
+                                            color: Colors.white.withValues(
+                                              alpha: 0.08,
+                                            ),
+                                          ),
+                                        ),
+
+                                        child: Text(
+                                          '-₹${filteredList[index].amount.toStringAsFixed(2)}',
+
+                                          style: const TextStyle(
+                                            color: Colors.white,
+
+                                            fontWeight: FontWeight.w600,
                                           ),
                                         ),
                                       ),
 
-                                      const SizedBox(width: 10),
+                                      const SizedBox(height: 14),
 
-                                      Container(
-                                        decoration: BoxDecoration(
-                                          color: Colors.red.withValues(
-                                            alpha: 0.1,
-                                          ),
-                                          shape: BoxShape.circle,
-                                        ),
+                                      Row(
+                                        children: [
+                                          GestureDetector(
+                                            onTap: () => _NavigateAndEdit(
+                                              filteredList[index],
+                                            ),
 
-                                        child: IconButton(
-                                          icon: const Icon(
-                                            Icons.delete,
-                                            color: Colors.red,
-                                            size: 22,
+                                            child: Container(
+                                              padding: const EdgeInsets.all(10),
+
+                                              decoration: BoxDecoration(
+                                                shape: BoxShape.circle,
+
+                                                color: Colors.blue.withValues(
+                                                  alpha: 0.14,
+                                                ),
+                                              ),
+
+                                              child: const Icon(
+                                                Icons.edit,
+
+                                                size: 20,
+
+                                                color: Colors.blue,
+                                              ),
+                                            ),
                                           ),
 
-                                          onPressed: () => _deleteSpending(
-                                            filteredList[index],
+                                          const SizedBox(width: 10),
+
+                                          GestureDetector(
+                                            onTap: () => _deleteSpending(
+                                              filteredList[index],
+                                            ),
+
+                                            child: Container(
+                                              padding: const EdgeInsets.all(10),
+
+                                              decoration: BoxDecoration(
+                                                shape: BoxShape.circle,
+
+                                                color: Colors.red.withValues(
+                                                  alpha: 0.14,
+                                                ),
+                                              ),
+
+                                              child: const Icon(
+                                                Icons.delete,
+
+                                                size: 20,
+
+                                                color: Colors.red,
+                                              ),
+                                            ),
                                           ),
-                                        ),
+                                        ],
                                       ),
                                     ],
                                   ),
                                 ],
                               ),
-                            ),
-                          ),
+                            );
+                          },
                         ),
                 ),
+
+                const SizedBox(height: 90),
               ],
             ),
           ),

@@ -19,18 +19,108 @@ class _AddScreenState extends State<AddScreen> {
   Future<void> _presentDatePicker() async {
     final DateTime? picked = await showDatePicker(
       context: context,
+
       initialDate: DateTime.now(),
+
       firstDate: DateTime(2000),
-      lastDate: DateTime(2100),
+
+      // USER CANNOT SELECT FUTURE DATES
+      lastDate: DateTime.now(),
+
       builder: (context, child) {
         return Theme(
           data: Theme.of(context).copyWith(
-            colorScheme: const ColorScheme.light(
-              primary: Color(0xFF00A86B), // Splash accent color
+            dialogTheme: DialogThemeData(
+              backgroundColor: const Color(0xFF140824),
+
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(28),
+              ),
+            ),
+
+            colorScheme: const ColorScheme.dark(
+              primary: Color(0xFFB14EFF),
+
               onPrimary: Colors.white,
-              onSurface: Color(0xFF0A3D2A),
+
+              surface: Color(0xFF1E0D3A),
+
+              onSurface: Colors.white,
+            ),
+
+            scaffoldBackgroundColor: const Color(0xFF140824),
+
+            textButtonTheme: TextButtonThemeData(
+              style: TextButton.styleFrom(
+                foregroundColor: const Color(0xFFB14EFF),
+
+                textStyle: const TextStyle(
+                  fontWeight: FontWeight.w700,
+
+                  fontSize: 16,
+                ),
+              ),
+            ),
+
+            datePickerTheme: DatePickerThemeData(
+              backgroundColor: const Color(0xFF140824),
+
+              surfaceTintColor: Colors.transparent,
+
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(28),
+              ),
+
+              headerBackgroundColor: const Color(0xFFB14EFF),
+
+              headerForegroundColor: Colors.white,
+
+              dividerColor: Colors.white.withValues(alpha: 0.08),
+
+              weekdayStyle: TextStyle(
+                color: Colors.white.withValues(alpha: 0.65),
+
+                fontWeight: FontWeight.w600,
+              ),
+
+              dayStyle: const TextStyle(
+                color: Colors.white,
+
+                fontWeight: FontWeight.w500,
+              ),
+
+              yearStyle: const TextStyle(color: Colors.white),
+
+              todayForegroundColor: WidgetStateProperty.all(Colors.white),
+
+              // CURRENT DAY BORDER
+              todayBorder: BorderSide(color: const Color(0xFFB14EFF), width: 2),
+
+              // SELECTED DAY BG
+              dayBackgroundColor: WidgetStateProperty.resolveWith((states) {
+                if (states.contains(WidgetState.selected)) {
+                  return const Color(0xFFB14EFF);
+                }
+
+                return Colors.transparent;
+              }),
+
+              // SELECTED DAY TEXT
+              dayForegroundColor: WidgetStateProperty.resolveWith((states) {
+                if (states.contains(WidgetState.selected)) {
+                  return Colors.white;
+                }
+
+                // DISABLED FUTURE DATES
+                if (states.contains(WidgetState.disabled)) {
+                  return Colors.white.withValues(alpha: 0.18);
+                }
+
+                return Colors.white;
+              }),
             ),
           ),
+
           child: child!,
         );
       },
@@ -75,215 +165,408 @@ class _AddScreenState extends State<AddScreen> {
 
   @override
   Widget build(BuildContext context) {
-    // Theme colors extracted from your SplashScreen
-    const Color darkGreen = Color(0xFF0A3D2A);
-    const Color emeraldGreen = Color(0xFF00A86B);
-    const Color mutedGreen = Color.fromRGBO(10, 60, 40, 0.55);
-
     return Scaffold(
       extendBodyBehindAppBar: true,
+
+      backgroundColor: Colors.transparent,
+
       appBar: AppBar(
+        backgroundColor: Colors.transparent,
+
+        elevation: 0,
+
+        iconTheme: const IconThemeData(color: Colors.white),
+
         title: const Text(
-          'Add New Expense',
+          "Add Expense",
+
           style: TextStyle(
-            color: darkGreen,
+            color: Colors.white,
+
             fontWeight: FontWeight.w800,
-            letterSpacing: 0.5,
+
+            fontSize: 24,
           ),
         ),
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        iconTheme: const IconThemeData(color: darkGreen),
       ),
+
       body: Container(
         height: double.infinity,
         width: double.infinity,
+
         decoration: const BoxDecoration(
           gradient: LinearGradient(
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
-            colors: [Color(0xFFD4F7F0), Color(0xFFAAE8D0), Color(0xFF66CCB0)],
+
+            colors: [
+              Color(0xFF0B0617),
+              Color(0xFF140824),
+              Color(0xFF1E0D3A),
+              Color(0xFF102B4E),
+            ],
           ),
         ),
+
         child: SafeArea(
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 16.0),
+            padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 18),
+
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
+              crossAxisAlignment: CrossAxisAlignment.start,
+
               children: [
-                const SizedBox(height: 10),
-                
-                // Expense Type Field
-                TextField(
-                  controller: _typeController,
-                  style: const TextStyle(
-                    color: darkGreen,
-                    fontWeight: FontWeight.w600,
+                const SizedBox(height: 20),
+
+                Text(
+                  "Create a new expense entry",
+
+                  style: TextStyle(
+                    color: Colors.white.withValues(alpha: 0.60),
+
                     fontSize: 16,
-                  ),
-                  decoration: InputDecoration(
-                    labelText: 'Expense Type',
-                    labelStyle: const TextStyle(color: mutedGreen),
-                    filled: true,
-                    fillColor: Colors.white.withValues(alpha: 0.9),
-                    prefixIcon: const Icon(Icons.label_outline, color: emeraldGreen),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(16),
-                      borderSide: BorderSide.none,
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(16),
-                      borderSide: const BorderSide(color: emeraldGreen, width: 2),
-                    ),
-                    contentPadding: const EdgeInsets.symmetric(vertical: 18),
+
+                    fontWeight: FontWeight.w500,
                   ),
                 ),
-                
-                const SizedBox(height: 20),
-                
-                // Amount Field
-                TextField(
-                  controller: _amountController,
-                  keyboardType: const TextInputType.numberWithOptions(decimal: true),
-                  style: const TextStyle(
-                    color: darkGreen,
-                    fontWeight: FontWeight.w600,
-                    fontSize: 16,
-                  ),
-                  decoration: InputDecoration(
-                    labelText: 'Amount',
-                    labelStyle: const TextStyle(color: mutedGreen),
-                    filled: true,
-                    fillColor: Colors.white.withValues(alpha: 0.9),
-                    prefixText: '₹ ',
-                    prefixStyle: const TextStyle(
-                      color: emeraldGreen,
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                    ),
-                    prefixIcon: const Icon(Icons.account_balance_wallet_outlined, color: emeraldGreen),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(16),
-                      borderSide: BorderSide.none,
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(16),
-                      borderSide: const BorderSide(color: emeraldGreen, width: 2),
-                    ),
-                    contentPadding: const EdgeInsets.symmetric(vertical: 18),
-                  ),
-                ),
-                
-                const SizedBox(height: 20),
-                
-                // Date Selector
+
+                const SizedBox(height: 40),
+
+                // TYPE FIELD
                 Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                  height: 70,
+
                   decoration: BoxDecoration(
-                    color: Colors.white.withValues(alpha: 0.9),
-                    borderRadius: BorderRadius.circular(16),
+                    borderRadius: BorderRadius.circular(26),
+
+                    gradient: LinearGradient(
+                      colors: [
+                        Colors.white.withValues(alpha: 0.06),
+
+                        Colors.white.withValues(alpha: 0.03),
+                      ],
+                    ),
+
+                    border: Border.all(
+                      color: Colors.white.withValues(alpha: 0.08),
+                    ),
+
                     boxShadow: [
                       BoxShadow(
-                        color: darkGreen.withValues(alpha: 0.05),
-                        blurRadius: 10,
-                        offset: const Offset(0, 4),
+                        color: Colors.black.withValues(alpha: 0.18),
+
+                        blurRadius: 18,
+
+                        offset: const Offset(0, 10),
                       ),
                     ],
                   ),
+
+                  child: TextField(
+                    controller: _typeController,
+
+                    style: const TextStyle(
+                      color: Colors.white,
+
+                      fontSize: 17,
+
+                      fontWeight: FontWeight.w600,
+                    ),
+
+                    decoration: InputDecoration(
+                      border: InputBorder.none,
+
+                      contentPadding: const EdgeInsets.symmetric(vertical: 24),
+
+                      prefixIcon: Padding(
+                        padding: const EdgeInsets.all(12),
+
+                        child: Container(
+                          height: 50,
+                          width: 50,
+
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+
+                            color: const Color(
+                              0xFFB14EFF,
+                            ).withValues(alpha: 0.16),
+                          ),
+
+                          child: const Icon(
+                            Icons.category_rounded,
+
+                            color: Color(0xFFB14EFF),
+
+                            size: 26,
+                          ),
+                        ),
+                      ),
+
+                      hintText: "Expense Category",
+
+                      hintStyle: TextStyle(
+                        color: Colors.white.withValues(alpha: 0.38),
+
+                        fontSize: 16,
+
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                  ),
+                ),
+
+                const SizedBox(height: 24),
+
+                // AMOUNT FIELD
+                Container(
+                  height: 70,
+
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(26),
+
+                    gradient: LinearGradient(
+                      colors: [
+                        Colors.white.withValues(alpha: 0.06),
+
+                        Colors.white.withValues(alpha: 0.03),
+                      ],
+                    ),
+
+                    border: Border.all(
+                      color: Colors.white.withValues(alpha: 0.08),
+                    ),
+
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withValues(alpha: 0.18),
+
+                        blurRadius: 18,
+
+                        offset: const Offset(0, 10),
+                      ),
+                    ],
+                  ),
+
+                  child: TextField(
+                    controller: _amountController,
+
+                    keyboardType: const TextInputType.numberWithOptions(
+                      decimal: true,
+                    ),
+
+                    style: const TextStyle(
+                      color: Colors.white,
+
+                      fontSize: 17,
+
+                      fontWeight: FontWeight.w600,
+                    ),
+
+                    decoration: InputDecoration(
+                      border: InputBorder.none,
+
+                      contentPadding: const EdgeInsets.symmetric(vertical: 24),
+
+                      prefixIcon: Padding(
+                        padding: const EdgeInsets.all(12),
+
+                        child: Container(
+                          height: 50,
+                          width: 50,
+
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+
+                            color: const Color(
+                              0xFFB14EFF,
+                            ).withValues(alpha: 0.16),
+                          ),
+
+                          child: const Icon(
+                            Icons.currency_rupee_rounded,
+
+                            color: Color(0xFFB14EFF),
+
+                            size: 26,
+                          ),
+                        ),
+                      ),
+
+                      hintText: "Expense Amount",
+
+                      hintStyle: TextStyle(
+                        color: Colors.white.withValues(alpha: 0.38),
+
+                        fontSize: 16,
+
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                  ),
+                ),
+
+                const SizedBox(height: 24),
+
+                // DATE CARD
+                Container(
+                  padding: const EdgeInsets.all(18),
+
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(24),
+
+                    color: Colors.white.withValues(alpha: 0.05),
+
+                    border: Border.all(
+                      color: Colors.white.withValues(alpha: 0.06),
+                    ),
+                  ),
+
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+
                     children: [
                       Row(
                         children: [
                           Container(
-                            padding: const EdgeInsets.all(8),
+                            padding: const EdgeInsets.all(14),
+
                             decoration: BoxDecoration(
-                              color: emeraldGreen.withValues(alpha: 0.15),
                               shape: BoxShape.circle,
+
+                              color: const Color(
+                                0xFFB14EFF,
+                              ).withValues(alpha: 0.14),
                             ),
+
                             child: const Icon(
-                              Icons.calendar_today_rounded,
-                              color: emeraldGreen,
-                              size: 20,
+                              Icons.calendar_month,
+
+                              color: Color(0xFFB14EFF),
                             ),
                           ),
-                          const SizedBox(width: 12),
+
+                          const SizedBox(width: 16),
+
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
+
                             children: [
-                              const Text(
-                                'Date',
+                              Text(
+                                "Expense Date",
+
                                 style: TextStyle(
-                                  fontSize: 12,
-                                  color: mutedGreen,
-                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white.withValues(alpha: 0.45),
+
+                                  fontSize: 13,
                                 ),
                               ),
+
+                              const SizedBox(height: 5),
+
                               Text(
                                 _selectedDate,
+
                                 style: const TextStyle(
-                                  fontSize: 16,
+                                  color: Colors.white,
+
+                                  fontSize: 17,
+
                                   fontWeight: FontWeight.w700,
-                                  color: darkGreen,
                                 ),
                               ),
                             ],
                           ),
                         ],
                       ),
-                      TextButton(
-                        onPressed: _presentDatePicker,
-                        style: TextButton.styleFrom(
-                          foregroundColor: emeraldGreen,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10),
+
+                      GestureDetector(
+                        onTap: _presentDatePicker,
+
+                        child: Container(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 18,
+                            vertical: 10,
+                          ),
+
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(18),
+
+                            gradient: const LinearGradient(
+                              colors: [Color(0xFFB14EFF), Color(0xFF7B2DFF)],
+                            ),
+                          ),
+
+                          child: const Text(
+                            "Change",
+
+                            style: TextStyle(
+                              color: Colors.white,
+
+                              fontWeight: FontWeight.w700,
+                            ),
                           ),
                         ),
-                        child: const Text(
-                          'Change',
-                          style: TextStyle(fontWeight: FontWeight.bold),
-                        ),
                       ),
                     ],
                   ),
                 ),
-                
+
                 const Spacer(),
-                
-                // Submit Button
+
+                // BUTTON
                 Container(
+                  width: double.infinity,
+
                   decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(24),
+
+                    gradient: const LinearGradient(
+                      colors: [Color(0xFFB14EFF), Color(0xFF7B2DFF)],
+                    ),
+
                     boxShadow: [
                       BoxShadow(
-                        color: emeraldGreen.withValues(alpha: 0.3),
-                        blurRadius: 15,
-                        offset: const Offset(0, 8),
+                        color: const Color(0xFFB14EFF).withValues(alpha: 0.35),
+
+                        blurRadius: 30,
+                        spreadRadius: 2,
                       ),
                     ],
                   ),
+
                   child: ElevatedButton(
                     onPressed: _submitData,
+
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xFF00A86B),
-                      foregroundColor: Colors.white,
-                      padding: const EdgeInsets.symmetric(vertical: 18),
+                      backgroundColor: Colors.transparent,
+
+                      shadowColor: Colors.transparent,
+
+                      padding: const EdgeInsets.symmetric(vertical: 22),
+
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(16),
+                        borderRadius: BorderRadius.circular(24),
                       ),
-                      elevation: 0,
                     ),
+
                     child: const Text(
-                      'Add Expense',
+                      "Add Expense",
+
                       style: TextStyle(
+                        color: Colors.white,
+
                         fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                        letterSpacing: 1.2,
+
+                        fontWeight: FontWeight.w700,
+
+                        letterSpacing: 0.5,
                       ),
                     ),
                   ),
                 ),
-                
-                const SizedBox(height: 12),
+
+                const SizedBox(height: 18),
               ],
             ),
           ),

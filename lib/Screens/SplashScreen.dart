@@ -1,5 +1,4 @@
 import 'dart:async';
-// import 'package:expense_management/Screens/FragmentHolder.dart';
 import 'package:flutter/material.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -13,7 +12,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    Future.delayed(Duration(seconds: 2), () {
+    Future.delayed(const Duration(seconds: 2), () {
       if (mounted) {
         Navigator.pushReplacementNamed(context, '/list');
       }
@@ -26,130 +25,167 @@ class _SplashScreenState extends State<SplashScreen> {
       body: Container(
         height: double.infinity,
         width: double.infinity,
+
         decoration: const BoxDecoration(
           gradient: LinearGradient(
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
-            colors: [Color(0xFFD4F7F0), Color(0xFFAAE8D0), Color(0xFF66CCB0)],
+
+            colors: [
+              Color(0xFF0B0617),
+
+              Color(0xFF140824),
+
+              Color(0xFF1E0D3A),
+
+              Color(0xFF102B4E),
+            ],
           ),
         ),
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(top: 52.0, right: 24.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  Text(
-                    "v1.0",
-                    style: TextStyle(
-                      fontSize: 13,
-                      color: Color.fromRGBO(7, 51, 35, 0.447),
-                      letterSpacing: 1.2,
-                      fontWeight: FontWeight.bold,
+
+        child: SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 30),
+
+            child: Column(
+              children: [
+                const Spacer(),
+
+                // LOGO
+                Container(
+                  height: 118,
+                  width: 118,
+
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+
+                    gradient: const LinearGradient(
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+
+                      colors: [Color(0xFFCA6CFF), Color(0xFF8A3DFF)],
+                    ),
+
+                    boxShadow: [
+                      BoxShadow(
+                        color: const Color(0xFFB14EFF).withValues(alpha: 0.22),
+
+                        blurRadius: 35,
+                        spreadRadius: 2,
+                      ),
+                    ],
+                  ),
+
+                  child: Padding(
+                    padding: const EdgeInsets.all(28),
+
+                    child: Image.asset(
+                      'assets/images/cash-flow.png',
+
+                      color: Colors.white,
                     ),
                   ),
-                ],
-              ),
-            ),
+                ),
 
-            const SizedBox(height: 90, width: double.infinity),
+                const SizedBox(height: 46),
 
-            Center(
-              child: Container(
-                padding: const EdgeInsets.all(22),
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: Color.fromRGBO(0, 203, 125, 0.098),
-                  border: Border.all(
-                    color: const Color.fromARGB(135, 0, 145, 92),
-                    width: 3,
+                // APP NAME
+                ShaderMask(
+                  shaderCallback: (bounds) {
+                    return const LinearGradient(
+                      colors: [Colors.white, Color(0xFFE7CCFF)],
+                    ).createShader(bounds);
+                  },
+
+                  child: const Text(
+                    "TrackEx",
+
+                    style: TextStyle(
+                      color: Colors.white,
+
+                      fontSize: 44,
+
+                      fontWeight: FontWeight.w800,
+
+                      letterSpacing: 1,
+                    ),
                   ),
                 ),
-                child: Image.asset(
-                  'assets/images/cash-flow.png',
-                  height: 62,
-                  width: 62,
-                  fit: BoxFit.cover,
-                  color: const Color.fromARGB(249, 0, 161, 102),
+
+                const SizedBox(height: 18),
+
+                // SUBTITLE
+                Text(
+                  "Track expenses effortlessly and stay in control of your finances.",
+
+                  textAlign: TextAlign.center,
+
+                  style: TextStyle(
+                    color: Colors.white.withValues(alpha: 0.65),
+
+                    fontSize: 16,
+
+                    height: 1.7,
+
+                    fontWeight: FontWeight.w500,
+                  ),
                 ),
-              ),
-            ),
 
-            const SizedBox(height: 28),
+                const Spacer(),
 
-            Text(
-              "TrackEx",
-              style: TextStyle(
-                fontSize: 42,
-                fontWeight: FontWeight.w800,
-                fontStyle: FontStyle.italic,
-                color: Color(0xFF0A3D2A),
-                letterSpacing: 1.5,
-              ),
-            ),
+                // LOADER
+                SizedBox(
+                  height: 34,
+                  width: 34,
 
-            const SizedBox(height: 16),
+                  child: CircularProgressIndicator(
+                    strokeWidth: 2.5,
 
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 48.0),
-              child: Text(
-                "\"See your spending.\nShape your saving.\"",
-                style: TextStyle(
-                  fontSize: 18,
-                  height: 1.55,
-                  color: Color.fromRGBO(10, 60, 40, 0.55),
-                  fontWeight: FontWeight.bold,
-                  letterSpacing: 0.3,
+                    valueColor: const AlwaysStoppedAnimation(Color(0xFFCA6CFF)),
+
+                    backgroundColor: Colors.white.withValues(alpha: 0.08),
+                  ),
                 ),
-                textAlign: TextAlign.center,
-              ),
-            ),
 
-            const SizedBox(height: 120, width: double.infinity),
+                const SizedBox(height: 24),
 
-            SizedBox(
-              height: 40,
-              width: 40,
-              child: CircularProgressIndicator(
-                strokeWidth: 2.5,
-                valueColor: AlwaysStoppedAnimation<Color>(Color(0xFF00A86B)),
-                backgroundColor: Color.fromRGBO(0, 180, 110, 0.15),
-              ),
-            ),
+                Text(
+                  "Loading your workspace",
 
-            const SizedBox(height: 14),
+                  style: TextStyle(
+                    color: Colors.white.withValues(alpha: 0.42),
 
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 4.0),
-              child: Text(
-                "Loading...",
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: 15,
-                  color: Color.fromRGBO(10, 60, 40, 0.45),
-                  letterSpacing: 1.8,
-                  fontWeight: FontWeight.w600,
+                    fontSize: 14,
+
+                    letterSpacing: 0.4,
+
+                    fontWeight: FontWeight.w500,
+                  ),
                 ),
-              ),
-            ),
 
-            const Spacer(),
+                const Spacer(),
 
-            Padding(
-              padding: const EdgeInsets.only(bottom: 28.0),
-              child: Text(
-                "Copyright © 2026. All Rights Reserved.",
-                style: TextStyle(
-                  fontSize: 15,
-                  fontWeight: FontWeight.w900,
-                  color: Color.fromRGBO(10, 60, 40, 0.35),
-                  letterSpacing: 0.3,
+                // COPYRIGHT
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 20),
+
+                  child: Text(
+                    "© 2026 TrackEx • All Rights Reserved",
+
+                    style: TextStyle(
+                      color: Colors.white.withValues(alpha: 0.26),
+
+                      fontSize: 12.5,
+
+                      letterSpacing: 0.4,
+
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
                 ),
-                textAlign: TextAlign.center,
-              ),
+              ],
             ),
-          ],
+          ),
         ),
       ),
     );
