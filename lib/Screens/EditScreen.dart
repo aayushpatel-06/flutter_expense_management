@@ -225,28 +225,12 @@ class _EditScreenState extends State<EditScreen> {
 
         child: SafeArea(
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 18),
+            padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
 
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
 
               children: [
-                const SizedBox(height: 20),
-
-                Text(
-                  "Update your expense details",
-
-                  style: TextStyle(
-                    color: Colors.white.withValues(alpha: 0.60),
-
-                    fontSize: 16,
-
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
-
-                const SizedBox(height: 40),
-
                 // CATEGORY FIELD
                 Container(
                   height: 70,
@@ -331,7 +315,7 @@ class _EditScreenState extends State<EditScreen> {
                   ),
                 ),
 
-                const SizedBox(height: 24),
+                const SizedBox(height: 18),
 
                 // AMOUNT FIELD
                 Container(
@@ -421,11 +405,11 @@ class _EditScreenState extends State<EditScreen> {
                   ),
                 ),
 
-                const SizedBox(height: 24),
+                const SizedBox(height: 18),
 
                 // DATE CARD
                 Container(
-                  padding: const EdgeInsets.all(18),
+                  padding: const EdgeInsets.all(10),
 
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(24),
@@ -558,7 +542,7 @@ class _EditScreenState extends State<EditScreen> {
 
                       shadowColor: Colors.transparent,
 
-                      padding: const EdgeInsets.symmetric(vertical: 22),
+                      padding: const EdgeInsets.symmetric(vertical: 15),
 
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(24),
@@ -581,7 +565,7 @@ class _EditScreenState extends State<EditScreen> {
                   ),
                 ),
 
-                const SizedBox(height: 18),
+                const SizedBox(height: 15),
               ],
             ),
           ),

@@ -150,7 +150,7 @@ class _SplashScreenState extends State<SplashScreen> {
                 const SizedBox(height: 24),
 
                 Text(
-                  "Loading your workspace",
+                  "Loading your expenses",
 
                   style: TextStyle(
                     color: Colors.white.withValues(alpha: 0.42),

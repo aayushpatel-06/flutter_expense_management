@@ -296,12 +296,12 @@ class _ListScreenState extends State<ListScreen> {
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
 
       floatingActionButton: Container(
-        height: 65,
-        width: 65,
+        height: 55,
+        width: 55,
 
         decoration: BoxDecoration(
           shape: BoxShape.circle,
-
+          
           gradient: const LinearGradient(
             colors: [Color(0xFFB14EFF), Color(0xFF7B2DFF)],
           ),
@@ -364,11 +364,11 @@ class _ListScreenState extends State<ListScreen> {
                   ),
                 ),
 
-                const SizedBox(height: 25),
+                const SizedBox(height: 15),
 
                 // BALANCE CARD
                 Container(
-                  padding: const EdgeInsets.all(22),
+                  padding: const EdgeInsets.all(18),
 
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(28),
@@ -424,7 +424,7 @@ class _ListScreenState extends State<ListScreen> {
                   ),
                 ),
 
-                const SizedBox(height: 24),
+                const SizedBox(height: 15),
 
                 // DATE FILTER
                 InkWell(
@@ -474,7 +474,7 @@ class _ListScreenState extends State<ListScreen> {
                   ),
                 ),
 
-                const SizedBox(height: 25),
+                const SizedBox(height: 15),
 
                 Expanded(
                   child: filteredList.isEmpty
@@ -512,9 +512,9 @@ class _ListScreenState extends State<ListScreen> {
 
                           itemBuilder: (context, index) {
                             return Container(
-                              margin: const EdgeInsets.only(bottom: 18),
+                              margin: const EdgeInsets.only(bottom: 15),
 
-                              padding: const EdgeInsets.all(18),
+                              padding: const EdgeInsets.all(15),
 
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(28),
@@ -559,7 +559,7 @@ class _ListScreenState extends State<ListScreen> {
                                     ),
                                   ),
 
-                                  const SizedBox(width: 18),
+                                  const SizedBox(width: 15),
 
                                   // TEXTS
                                   Expanded(
@@ -699,7 +699,7 @@ class _ListScreenState extends State<ListScreen> {
                         ),
                 ),
 
-                const SizedBox(height: 90),
+                const SizedBox(height: 80),
               ],
             ),
           ),
