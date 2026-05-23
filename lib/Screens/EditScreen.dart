@@ -233,7 +233,7 @@ class _EditScreenState extends State<EditScreen> {
               child: Container(
                 width: double.infinity,
 
-                padding: const EdgeInsets.all(24),
+                padding: const EdgeInsets.all(10),
 
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(34),
@@ -602,6 +602,7 @@ class _EditScreenState extends State<EditScreen> {
                         ),
                       ),
                     ),
+                    const SizedBox(height: 15),
                   ],
                 ),
               ),
