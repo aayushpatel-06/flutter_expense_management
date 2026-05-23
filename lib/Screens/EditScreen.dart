@@ -190,6 +190,8 @@ class _EditScreenState extends State<EditScreen> {
 
         elevation: 0,
 
+        centerTitle: true,
+
         iconTheme: const IconThemeData(color: Colors.white),
 
         title: const Text(
@@ -200,7 +202,7 @@ class _EditScreenState extends State<EditScreen> {
 
             fontWeight: FontWeight.w800,
 
-            fontSize: 24,
+            fontSize: 26,
           ),
         ),
       ),
@@ -224,349 +226,385 @@ class _EditScreenState extends State<EditScreen> {
         ),
 
         child: SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+          child: Center(
+            child: SingleChildScrollView(
+              padding: const EdgeInsets.symmetric(horizontal: 22, vertical: 20),
 
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              child: Container(
+                width: double.infinity,
 
-              children: [
-                // CATEGORY FIELD
-                Container(
-                  height: 70,
+                padding: const EdgeInsets.all(24),
 
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(26),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(34),
 
-                    gradient: LinearGradient(
-                      colors: [
-                        Colors.white.withValues(alpha: 0.06),
+                  gradient: LinearGradient(
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
 
-                        Colors.white.withValues(alpha: 0.03),
-                      ],
-                    ),
+                    colors: [
+                      Colors.white.withValues(alpha: 0.08),
 
-                    border: Border.all(
-                      color: Colors.white.withValues(alpha: 0.08),
-                    ),
-
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withValues(alpha: 0.18),
-
-                        blurRadius: 18,
-
-                        offset: const Offset(0, 10),
-                      ),
+                      Colors.white.withValues(alpha: 0.04),
                     ],
                   ),
 
-                  child: TextField(
-                    controller: _typeController,
+                  border: Border.all(
+                    color: Colors.white.withValues(alpha: 0.08),
+                  ),
 
-                    style: const TextStyle(
-                      color: Colors.white,
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withValues(alpha: 0.18),
 
-                      fontSize: 17,
+                      blurRadius: 25,
 
-                      fontWeight: FontWeight.w600,
+                      offset: const Offset(0, 14),
+                    ),
+                  ],
+                ),
+
+                child: Column(
+                  children: [
+                    const SizedBox(height: 24),
+
+                    Text(
+                      "Update your expense",
+
+                      textAlign: TextAlign.center,
+
+                      style: TextStyle(
+                        color: Colors.white.withValues(alpha: 0.58),
+
+                        fontSize: 23,
+
+                        height: 1.6,
+                      ),
                     ),
 
-                    decoration: InputDecoration(
-                      border: InputBorder.none,
+                    const SizedBox(height: 34),
 
-                      contentPadding: const EdgeInsets.symmetric(vertical: 24),
+                    // CATEGORY FIELD
+                    Container(
+                      height: 70,
 
-                      prefixIcon: Padding(
-                        padding: const EdgeInsets.all(12),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(26),
 
-                        child: Container(
-                          height: 50,
-                          width: 50,
+                        gradient: LinearGradient(
+                          colors: [
+                            Colors.white.withValues(alpha: 0.06),
 
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
+                            Colors.white.withValues(alpha: 0.03),
+                          ],
+                        ),
 
-                            color: const Color(
-                              0xFFB14EFF,
-                            ).withValues(alpha: 0.16),
-                          ),
-
-                          child: const Icon(
-                            Icons.category_rounded,
-
-                            color: Color(0xFFB14EFF),
-
-                            size: 26,
-                          ),
+                        border: Border.all(
+                          color: Colors.white.withValues(alpha: 0.08),
                         ),
                       ),
 
-                      hintText: "Expense Category",
+                      child: TextField(
+                        controller: _typeController,
 
-                      hintStyle: TextStyle(
-                        color: Colors.white.withValues(alpha: 0.38),
+                        style: const TextStyle(
+                          color: Colors.white,
 
-                        fontSize: 16,
+                          fontSize: 17,
 
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                  ),
-                ),
+                          fontWeight: FontWeight.w600,
+                        ),
 
-                const SizedBox(height: 18),
+                        decoration: InputDecoration(
+                          border: InputBorder.none,
 
-                // AMOUNT FIELD
-                Container(
-                  height: 70,
-
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(26),
-
-                    gradient: LinearGradient(
-                      colors: [
-                        Colors.white.withValues(alpha: 0.06),
-
-                        Colors.white.withValues(alpha: 0.03),
-                      ],
-                    ),
-
-                    border: Border.all(
-                      color: Colors.white.withValues(alpha: 0.08),
-                    ),
-
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withValues(alpha: 0.18),
-
-                        blurRadius: 18,
-
-                        offset: const Offset(0, 10),
-                      ),
-                    ],
-                  ),
-
-                  child: TextField(
-                    controller: _amountController,
-
-                    keyboardType: const TextInputType.numberWithOptions(
-                      decimal: true,
-                    ),
-
-                    style: const TextStyle(
-                      color: Colors.white,
-
-                      fontSize: 17,
-
-                      fontWeight: FontWeight.w600,
-                    ),
-
-                    decoration: InputDecoration(
-                      border: InputBorder.none,
-
-                      contentPadding: const EdgeInsets.symmetric(vertical: 24),
-
-                      prefixIcon: Padding(
-                        padding: const EdgeInsets.all(12),
-
-                        child: Container(
-                          height: 50,
-                          width: 50,
-
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-
-                            color: const Color(
-                              0xFFB14EFF,
-                            ).withValues(alpha: 0.16),
+                          contentPadding: const EdgeInsets.symmetric(
+                            vertical: 24,
                           ),
 
-                          child: const Icon(
-                            Icons.currency_rupee_rounded,
+                          prefixIcon: Padding(
+                            padding: const EdgeInsets.all(12),
 
-                            color: Color(0xFFB14EFF),
+                            child: Container(
+                              height: 52,
+                              width: 52,
 
-                            size: 26,
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+
+                                color: const Color(
+                                  0xFFB14EFF,
+                                ).withValues(alpha: 0.16),
+                              ),
+
+                              child: const Icon(
+                                Icons.category_rounded,
+
+                                color: Color(0xFFB14EFF),
+
+                                size: 26,
+                              ),
+                            ),
+                          ),
+
+                          hintText: "Expense Category",
+
+                          hintStyle: TextStyle(
+                            color: Colors.white.withValues(alpha: 0.38),
+
+                            fontSize: 16,
+
+                            fontWeight: FontWeight.w500,
                           ),
                         ),
                       ),
+                    ),
 
-                      hintText: "Expense Amount",
+                    const SizedBox(height: 18),
 
-                      hintStyle: TextStyle(
-                        color: Colors.white.withValues(alpha: 0.38),
+                    // AMOUNT FIELD
+                    Container(
+                      height: 70,
 
-                        fontSize: 16,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(26),
 
-                        fontWeight: FontWeight.w500,
+                        gradient: LinearGradient(
+                          colors: [
+                            Colors.white.withValues(alpha: 0.06),
+
+                            Colors.white.withValues(alpha: 0.03),
+                          ],
+                        ),
+
+                        border: Border.all(
+                          color: Colors.white.withValues(alpha: 0.08),
+                        ),
+                      ),
+
+                      child: TextField(
+                        controller: _amountController,
+
+                        keyboardType: const TextInputType.numberWithOptions(
+                          decimal: true,
+                        ),
+
+                        style: const TextStyle(
+                          color: Colors.white,
+
+                          fontSize: 17,
+
+                          fontWeight: FontWeight.w600,
+                        ),
+
+                        decoration: InputDecoration(
+                          border: InputBorder.none,
+
+                          contentPadding: const EdgeInsets.symmetric(
+                            vertical: 24,
+                          ),
+
+                          prefixIcon: Padding(
+                            padding: const EdgeInsets.all(12),
+
+                            child: Container(
+                              height: 52,
+                              width: 52,
+
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+
+                                color: const Color(
+                                  0xFFB14EFF,
+                                ).withValues(alpha: 0.16),
+                              ),
+
+                              child: const Icon(
+                                Icons.currency_rupee_rounded,
+
+                                color: Color(0xFFB14EFF),
+
+                                size: 26,
+                              ),
+                            ),
+                          ),
+
+                          hintText: "Expense Amount",
+
+                          hintStyle: TextStyle(
+                            color: Colors.white.withValues(alpha: 0.38),
+
+                            fontSize: 16,
+
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
                       ),
                     ),
-                  ),
-                ),
 
-                const SizedBox(height: 18),
+                    const SizedBox(height: 18),
 
-                // DATE CARD
-                Container(
-                  padding: const EdgeInsets.all(10),
+                    // DATE CARD
+                    Container(
+                      padding: const EdgeInsets.all(12),
 
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(24),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(24),
 
-                    color: Colors.white.withValues(alpha: 0.05),
+                        gradient: LinearGradient(
+                          colors: [
+                            Colors.white.withValues(alpha: 0.06),
 
-                    border: Border.all(
-                      color: Colors.white.withValues(alpha: 0.06),
-                    ),
-                  ),
+                            Colors.white.withValues(alpha: 0.03),
+                          ],
+                        ),
 
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        border: Border.all(
+                          color: Colors.white.withValues(alpha: 0.08),
+                        ),
+                      ),
 
-                    children: [
-                      Row(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+
                         children: [
-                          Container(
-                            padding: const EdgeInsets.all(14),
-
-                            decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-
-                              color: const Color(
-                                0xFFB14EFF,
-                              ).withValues(alpha: 0.14),
-                            ),
-
-                            child: const Icon(
-                              Icons.calendar_month,
-
-                              color: Color(0xFFB14EFF),
-                            ),
-                          ),
-
-                          const SizedBox(width: 16),
-
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-
+                          Row(
                             children: [
-                              Text(
-                                "Expense Date",
+                              Container(
+                                padding: const EdgeInsets.all(14),
 
-                                style: TextStyle(
-                                  color: Colors.white.withValues(alpha: 0.45),
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
 
-                                  fontSize: 13,
+                                  color: const Color(
+                                    0xFFB14EFF,
+                                  ).withValues(alpha: 0.14),
+                                ),
+
+                                child: const Icon(
+                                  Icons.calendar_month,
+
+                                  color: Color(0xFFB14EFF),
                                 ),
                               ),
 
-                              const SizedBox(height: 5),
+                              const SizedBox(width: 16),
 
-                              Text(
-                                _selectedDate,
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
 
-                                style: const TextStyle(
+                                children: [
+                                  Text(
+                                    "Expense Date",
+
+                                    style: TextStyle(
+                                      color: Colors.white.withValues(
+                                        alpha: 0.45,
+                                      ),
+
+                                      fontSize: 13,
+                                    ),
+                                  ),
+
+                                  const SizedBox(height: 5),
+
+                                  Text(
+                                    _selectedDate,
+
+                                    style: const TextStyle(
+                                      color: Colors.white,
+
+                                      fontSize: 17,
+
+                                      fontWeight: FontWeight.w700,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+
+                          GestureDetector(
+                            onTap: _presentDatePicker,
+
+                            child: Container(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 18,
+                                vertical: 10,
+                              ),
+
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(18),
+
+                                gradient: const LinearGradient(
+                                  colors: [
+                                    Color(0xFFB14EFF),
+                                    Color(0xFF7B2DFF),
+                                  ],
+                                ),
+                              ),
+
+                              child: const Text(
+                                "Change",
+
+                                style: TextStyle(
                                   color: Colors.white,
-
-                                  fontSize: 17,
 
                                   fontWeight: FontWeight.w700,
                                 ),
                               ),
-                            ],
+                            ),
                           ),
                         ],
                       ),
+                    ),
 
-                      GestureDetector(
-                        onTap: _presentDatePicker,
+                    const SizedBox(height: 34),
 
-                        child: Container(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 18,
-                            vertical: 10,
+                    // BUTTON
+                    Container(
+                      height: 55,
+                      width: 150,
+
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(24),
+
+                        gradient: const LinearGradient(
+                          colors: [Color(0xFFB14EFF), Color(0xFF7B2DFF)],
+                        ),
+                      ),
+
+                      child: ElevatedButton(
+                        onPressed: _submitData,
+
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.transparent,
+
+                          shadowColor: Colors.transparent,
+
+                          padding: const EdgeInsets.symmetric(vertical: 16),
+
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(24),
                           ),
+                        ),
 
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(18),
+                        child: const Text(
+                          "Save Changes",
 
-                            gradient: const LinearGradient(
-                              colors: [Color(0xFFB14EFF), Color(0xFF7B2DFF)],
-                            ),
-                          ),
+                          style: TextStyle(
+                            color: Colors.white,
 
-                          child: const Text(
-                            "Change",
+                            fontSize: 18,
 
-                            style: TextStyle(
-                              color: Colors.white,
-
-                              fontWeight: FontWeight.w700,
-                            ),
+                            fontWeight: FontWeight.w700,
                           ),
                         ),
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
-
-                const Spacer(),
-
-                // SAVE BUTTON
-                Container(
-                  width: double.infinity,
-
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(24),
-
-                    gradient: const LinearGradient(
-                      colors: [Color(0xFFB14EFF), Color(0xFF7B2DFF)],
-                    ),
-
-                    boxShadow: [
-                      BoxShadow(
-                        color: const Color(0xFFB14EFF).withValues(alpha: 0.35),
-
-                        blurRadius: 30,
-                        spreadRadius: 2,
-                      ),
-                    ],
-                  ),
-
-                  child: ElevatedButton(
-                    onPressed: _submitData,
-
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.transparent,
-
-                      shadowColor: Colors.transparent,
-
-                      padding: const EdgeInsets.symmetric(vertical: 15),
-
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(24),
-                      ),
-                    ),
-
-                    child: const Text(
-                      "Save Changes",
-
-                      style: TextStyle(
-                        color: Colors.white,
-
-                        fontSize: 18,
-
-                        fontWeight: FontWeight.w700,
-
-                        letterSpacing: 0.5,
-                      ),
-                    ),
-                  ),
-                ),
-
-                const SizedBox(height: 15),
-              ],
+              ),
             ),
           ),
         ),
